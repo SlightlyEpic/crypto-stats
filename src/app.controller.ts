@@ -4,7 +4,7 @@ import { Cache } from 'cache-manager';
 import { z } from 'zod';
 import { AppService } from './app.service';
 import { ZodValidationPipe } from './validation/zod-validation.pipe';
-import { ApiOkResponse, ApiOperation, ApiProperty, ApiQuery } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiParam, ApiProperty, ApiQuery } from '@nestjs/swagger';
 
 const currencySchema = z.enum(['bitcoin', 'matic', 'ethereum']);
 
@@ -34,7 +34,7 @@ export class AppController {
 
     @Get('/stats/:currency')
     @ApiOperation({ summary: 'Get cryptocurrency stats', description: 'Fetch the latest stats for a specified cryptocurrency' })
-    @ApiQuery({ name: 'coin', enum: ['bitcoin', 'matic', 'ethereum'], description: 'The name of the cryptocurrency to fetch stats for' })
+    @ApiParam({ name: 'currency', enum: ['bitcoin', 'matic', 'ethereum'], description: 'The name of the cryptocurrency to fetch stats for' })
     @ApiOkResponse({
         description: 'Successfully fetched the cryptocurrency stats',
         type: StatsResponseDto,
@@ -48,7 +48,7 @@ export class AppController {
 
     @Get('/deviation/:currency')
     @ApiOperation({ summary: 'Get price deviation', description: 'Fetch the recent standard deviation of the cryptocurrency' })
-    @ApiQuery({ name: 'coin', enum: ['bitcoin', 'matic', 'ethereum'], description: 'The name of the cryptocurrency to calculate the deviation for' })
+    @ApiParam({ name: 'currency', enum: ['bitcoin', 'matic', 'ethereum'], description: 'The name of the cryptocurrency to calculate the deviation for' })
     @ApiOkResponse({
         description: 'Successfully fetched the standard deviation',
         type: DeviationResponseDto
