@@ -14,6 +14,7 @@ import { CoingeckoModule } from './wrappers/coingecko/coingecko.module';
             inject: [EnvProviderService],
             useFactory: (envProvider: EnvProviderService) => ({
                 uri: envProvider.env.MONGO_URI,
+                dbName: 'koinx-crypto'
             }),
         }),
         CoingeckoModule,
