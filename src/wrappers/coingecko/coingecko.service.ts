@@ -6,7 +6,7 @@ import { type AxiosError } from 'axios';
 export type CurrencyData = {
     price: number,
     marketCap: number,
-    change24h: number,
+    '24hChange': number,
 };
 
 @Injectable()
@@ -45,9 +45,9 @@ export class CoingeckoService {
                 }
             });
             const data: CurrencyData = {
-                price: resp.data?.market_data?.current_price,
-                marketCap: resp.data?.market_data?.market_cap,
-                change24h: resp.data?.market_data?.price_change_24h,
+                price: resp.data?.market_data?.current_price.usd,
+                marketCap: resp.data?.market_data?.market_cap.usd,
+                '24hChange': resp.data?.market_data?.price_change_24h,
             };
 
             if(Object.values(data).includes(undefined)) {

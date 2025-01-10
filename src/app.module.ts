@@ -5,10 +5,11 @@ import { EnvProviderModule } from './env-provider/env-provider.module';
 import { EnvProviderService } from './env-provider/env-provider.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CoingeckoModule } from './wrappers/coingecko/coingecko.module';
+import { CurrencyData, CurrencyDataSchema } from './schemas/currencyData.schema';
+import { BackgroundModule } from './background/background.module';
 
 @Module({
     imports: [
-        EnvProviderModule,
         MongooseModule.forRootAsync({
             imports: [EnvProviderModule],
             inject: [EnvProviderService],
@@ -17,7 +18,12 @@ import { CoingeckoModule } from './wrappers/coingecko/coingecko.module';
                 dbName: 'koinx-crypto'
             }),
         }),
+        MongooseModule.forFeature([
+            { name: CurrencyData.name, schema: CurrencyDataSchema },
+        ]),
+        EnvProviderModule,
         CoingeckoModule,
+        BackgroundModule,
     ],
     controllers: [AppController],
     providers: [AppService],

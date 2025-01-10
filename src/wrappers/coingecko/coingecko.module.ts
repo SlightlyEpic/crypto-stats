@@ -5,6 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [EnvProviderModule, HttpModule],
-  providers: [CoingeckoService]
+  providers: [CoingeckoService],
+  exports: [CoingeckoService]
 })
 export class CoingeckoModule {}

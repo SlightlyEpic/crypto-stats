@@ -7,19 +7,23 @@ const currencySchema = z.enum(['bitcoin', 'matic', 'ethereum']);
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService) { }
+    constructor(private readonly appService: AppService) {}
 
     @Get('/stats/:currency')
-    getStats(
+    async getStats(
         @Param('currency', new ZodValidationPipe(currencySchema)) currency: z.infer<typeof currencySchema>,
-    ): string {
+    ): Promise<{
+        price: number,
+        marketCap: number,
+        '24hChange': number,
+    }> {
         return this.appService.getStats(currency);
     }
 
     @Get('/deviation/:currency')
-    getDeviation(
+    async getDeviation(
         @Param('currency', new ZodValidationPipe(currencySchema)) currency: z.infer<typeof currencySchema>,
-    ): string {
+    ): Promise<{ deviation: number }> {
         return this.appService.getDeviation(currency);
     }
 }

@@ -15,7 +15,7 @@ export class CurrencyData {
   marketCap: number;
 
   @Prop({ required: true })
-  change24h: number
+  '24hChange': number
 }
 
 export const CurrencyDataSchema = SchemaFactory.createForClass(CurrencyData);

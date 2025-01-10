@@ -38,7 +38,7 @@ export class CoinsStatsService {
             }
 
             if(i === maxRetry) {
-                this.logger.warn(`Failed to update data for ${coin}`);
+                this.logger.warn(`Failed to update data for ${coin}.`);
             }
         }
     }
