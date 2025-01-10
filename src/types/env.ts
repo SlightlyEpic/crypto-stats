@@ -1,3 +1,5 @@
 export type Env = {
-    mongoUri: string,
+    MONGO_URI: string,
+    PORT: string,
+    COINGECKO_API_KEY: string,
 };
