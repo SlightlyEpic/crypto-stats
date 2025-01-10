@@ -17,7 +17,7 @@ Or manually through the endpoints:
 - Fully typed codebase
 
 **Built using:**
-- NestJS
+- Node.js
 - MongoDB
 
 Note: The site is deployed on render's free tier so there *might* be a cold start when you visit
