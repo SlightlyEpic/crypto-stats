@@ -1,6 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { InjectModel } from '@nestjs/mongoose';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 import { Model } from 'mongoose';
 import { CoingeckoService } from 'src/wrappers/coingecko/coingecko.service';
 import { CurrencyData } from 'src/schemas/currencyData.schema';
@@ -12,6 +14,7 @@ export class CoinsStatsService {
     constructor(
         private readonly coingeckoService: CoingeckoService,
         @InjectModel(CurrencyData.name) private currencyModel: Model<CurrencyData>,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache
     ) {}
 
     @Cron('0 */2 * * *', { name: 'updateCoinStats' })
@@ -41,5 +44,15 @@ export class CoinsStatsService {
                 this.logger.warn(`Failed to update data for ${coin}.`);
             }
         }
+
+        // Invalidate cache
+        await Promise.allSettled([
+            this.cacheManager.del('/stats/bitcoin'),
+            this.cacheManager.del('/stats/matic'),
+            this.cacheManager.del('/stats/ethereum'),
+            this.cacheManager.del('/deviation/bitcoin'),
+            this.cacheManager.del('/deviation/matic'),
+            this.cacheManager.del('/deviation/ethereum'),
+        ]);
     }
 }
