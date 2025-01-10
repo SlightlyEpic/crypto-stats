@@ -47,9 +47,6 @@ export class CoinsStatsService {
 
         // Invalidate cache
         await Promise.allSettled([
-            this.cacheManager.del('/stats/bitcoin'),
-            this.cacheManager.del('/stats/matic'),
-            this.cacheManager.del('/stats/ethereum'),
             this.cacheManager.del('/deviation/bitcoin'),
             this.cacheManager.del('/deviation/matic'),
             this.cacheManager.del('/deviation/ethereum'),
