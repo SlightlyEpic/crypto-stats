@@ -5,10 +5,10 @@ export type DeviationDocument = HydratedDocument<Deviation>;
 
 @Schema({ timestamps: true })
 export class Deviation {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   deviation: number;
 }
 

@@ -5,14 +5,17 @@ export type CurrencyDataDocument = HydratedDocument<CurrencyData>;
 
 @Schema({ timestamps: true })
 export class CurrencyData {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   price: number;
 
-  @Prop()
-  marketCap: string;
+  @Prop({ required: true })
+  marketCap: number;
+
+  @Prop({ required: true })
+  change24h: number
 }
 
 export const CurrencyDataSchema = SchemaFactory.createForClass(CurrencyData);
